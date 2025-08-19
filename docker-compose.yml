@@ -1,0 +1,39 @@
+
+#docker run -d --name redisinsight -p 5540:5540 redis/redisinsight:latest -v redisinsight:/data
+
+services:
+  redis:
+    image: redis:latest
+    container_name: 'redis_chat'
+    
+    ports:
+      - '6379:6379'
+    
+    networks:
+      - redis_network_for_websocket_chat
+  
+
+  redis-insight:
+    image: redis/redisinsight
+    container_name: 'redisinsight_chat'
+    
+    ports:
+      - '5540:5540'
+    
+    networks:
+      - redis_network_for_websocket_chat
+
+    volumes:
+      - 'redisDATA_volume_for_websocket_chat:/data'
+    
+    depends_on:
+      - redis
+
+networks:
+  redis_network_for_websocket_chat:
+    driver: bridge
+
+volumes:
+  redisDATA_volume_for_websocket_chat:
+
+
