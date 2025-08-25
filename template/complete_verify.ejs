@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% if(verify_info) { %>
+    <title>Регистрация завершена успешно!</title>
+    <% } else{ %>
+    <title>Регистрация провалена</title>
+    <% } %>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .success-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 60px 50px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 50px;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        .checkmark {
+            font-size: 60px;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 32px;
+            font-weight: 600;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .success-message {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-size: 16px;
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+
+        .user-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+            animation: slideUp 0.8s ease-out 0.4s both;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .info-label {
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: #495057;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            animation: slideUp 0.8s ease-out 0.6s both;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #6c757d;
+            border: 2px solid #e9ecef;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #48bb78, #f56565);
+            border-radius: 50%;
+            animation: confettiFall 5s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .welcome-text {
+            color: #48bb78;
+            font-weight: 600;
+            margin: 20px 0;
+            font-size: 18px;
+            animation: slideUp 0.8s ease-out 0.3s both;
+        }
+
+        .error-text {
+            color: #c44848;
+            font-weight: 600;
+            margin: 20px 0;
+            font-size: 18px;
+            animation: slideUp 0.8s ease-out 0.3s both;
+        }
+
+
+
+        @media (max-width: 600px) {
+            .success-container {
+                padding: 40px 25px;
+                margin: 20px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            .success-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 40px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        .error-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 30px;
+    background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 50px;
+    animation: scaleIn 0.6s ease-out;
+    position: relative;
+}
+
+.cross {
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+
+.cross::before,
+.cross::after {
+    content: '';
+    position: absolute;
+    background: white;
+    border-radius: 2px;
+}
+
+.cross::before {
+    width: 50px;
+    height: 6px;
+    top: 22px;
+    left: 0;
+    transform: rotate(45deg);
+}
+
+.cross::after {
+    width: 50px;
+    height: 6px;
+    top: 22px;
+    left: 0;
+    transform: rotate(-45deg);
+}
+
+@keyframes scaleIn {
+    from { 
+        transform: scale(0) rotate(0deg); 
+        opacity: 0; 
+    }
+    to { 
+        transform: scale(1) rotate(360deg); 
+        opacity: 1; 
+    }
+}
+
+@keyframes pulseError {
+    0% { 
+        box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.7);
+    }
+    70% { 
+        box-shadow: 0 0 0 20px rgba(229, 62, 62, 0);
+    }
+    100% { 
+        box-shadow: 0 0 0 0 rgba(229, 62, 62, 0);
+    }
+}
+
+.error-icon.pulse {
+    animation: pulseError 2s infinite;
+}
+
+
+               
+    </style>
+</head>
+<body>
+    <!-- Конфетти -->
+    <div id="confetti-container"></div>
+
+    <div class="success-container">
+        <% if(verify_info) { %>
+            <div class="success-icon">
+                <div class="checkmark">✓</div>
+            </div>
+        <% } else { %>
+            <div class="error-icon">
+                <div class="cross"></div>
+            </div>
+        <% } %>
+
+
+        <% if(verify_info) {%>
+        <h1>Регистрация завершена!</h1>
+        
+        <% } else{ %>
+            <h1>Регистрация провалена..</h1>
+        <% }%>
+        
+        <% if(verify_info) {%>
+        <div class="welcome-text">Добро пожаловать в наше сообщество!</div>
+        <% } else{ %>
+            <div class="error-text">Произошла ошибка!</div>
+        <% }%>
+        
+        <% if(verify_info) {%>
+            <p class="success-message">
+                Ваша учетная запись успешно создана и подтверждена. 
+                Теперь вы можете пользоваться всеми возможностями нашего сервиса.
+            </p>
+        
+        <% } else{ %>
+            <p class="success-message">
+                К сожалению при регистрации возникла ошибка,
+                попробуйте снова через некоторое время...
+            </p>
+        <% }%>
+
+        <div class="user-info">
+            <div class="info-item">
+                <span class="info-label">Имя пользователя:</span>
+                
+                <% if(verify_info.name) {%>
+                <span class="info-value" id="username"><%= verify_info.name %></span>
+                
+                <% } else{ %>
+                    <span class="info-value" id="username">--</span>
+                <% }%>
+
+            </div>
+            <div class="info-item">
+                <span class="info-label">Email:</span>
+                <% if(verify_info.email) {%>
+                <span class="info-value" id="useremail"><%= verify_info.email %></span>
+                
+                <% } else{ %>
+                    <span class="info-value" id="useremail">--</span>
+                <% }%>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Дата регистрации:</span>
+                <span class="info-value" id="regdate">25.08.2025</span>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="/" class="btn btn-secondary">На главную страницу</a>
+        </div>
+
+        <p style="margin-top: 25px; color: #6c757d; font-size: 14px;">
+            <% if(verify_info){%>
+            Спасибо за ваше сотрудничество! Мы стараемся защитить ваши данные от кражи
+            <% } else{ %>
+                Сожалеем, что произошла ошибка...
+            <% } %>
+
+        </p>
+    </div>
+
+    <script>
+        // Создание конфетти
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#667eea', '#764ba2', '#48bb78', '#f56565', '#f6ad55', '#f6e05e'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                confetti.style.width = Math.random() * 15 + 5 + 'px';
+                confetti.style.height = confetti.style.width;
+                container.appendChild(confetti);
+            }
+        }
+
+        // Заполнение данных пользователя из URL параметров
+        function getUserDataFromURL() {
+
+            document.getElementById('regdate').textContent = new Date().toLocaleDateString();
+        }
+
+        // Запуск анимации конфетти
+        createConfetti();
+        
+        // Заполнение данных пользователя
+        getUserDataFromURL();
+
+        // Дополнительная анимация через 2 секунды
+        setTimeout(() => {
+            document.querySelector('.success-icon').style.animation = 'pulse 1s ease-in-out';
+        }, 2000);
+    </script>
+</body>
+</html>

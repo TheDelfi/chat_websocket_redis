@@ -3,7 +3,9 @@ import { RedisModule } from './redis/redis.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { EmailModule } from './email/email.module';
+import { AuthModule } from './auth/auth.module';
 import * as path from 'path';
+import { User } from '../entities/uset.table';
 
 
 @Module({
@@ -25,7 +27,7 @@ import * as path from 'path';
           username: config_service.get<string>('DB_USERNAME'),
           password: config_service.get<string>('DB_PASSWORD'),
           database: config_service.get<string>('DB_DATABASE'),
-          entities: [],
+          entities: [User],
           synchronize: true,
         }),
         inject: [ConfigService]
@@ -33,6 +35,8 @@ import * as path from 'path';
     ),
     
     EmailModule,
+    
+    AuthModule,
 
   ],
 })

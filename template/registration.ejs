@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/registration.style.css">
+</head>
+<body>
+
+    <div class="registration_container">
+        <div class="registration_header">
+            <p class="auth_type"> <a href="/auth/login" class="auth_link">Войти</a>  <a href="/auth/registration" class="auth_link">Зарегистрироваться</a> </p>
+            <hr class="hr_auth_type">
+        </div>
+
+
+        <div class="registration_body">
+            <form id="registration_form" action="/auth/registration" method="POST">
+            <div class="input_form">
+                <input class="input_panel" placeholder="Имя или ник" type="text" minlength="2" maxlength="16" id="input_name" name="name">
+                <p class="help_block">Латинские буквы и цифры</p>
+            </div>
+
+            <div class="input_form">
+                <input class="input_panel" placeholder="Почта" type="email" minlength="2" maxlength="48" id="input_email" name="email">
+                <p class="help_block">Требуется для активации учетной записи</p>
+            </div>
+
+            <div class="input_form">
+                <input class="input_panel" placeholder="Пароль" type="password" id="input_password" minlength="6" maxlength="24" name="password">
+                <button id="show_password" type="button"><img src="/static/image/222w1.png" class="eye_img"></button>
+                <p class="help_block">Минимум 6 символов</p>
+                
+                <script src="/static/script/show_password.script.js"></script>
+            </div>
+        </div>
+
+
+        <div class="registration_footer">
+            <input type="checkbox" class="custom-checkbox">
+            <pre class="Registration_conditions">
+                Я соглашаюсь с <a href="">Условиями использования</a>
+                и <a href="">Политикой конфиденциальности</a>
+            </pre>
+            <button type="submit" class="submit_registration" disabled>Зарегистрироваться</button>
+        </div>
+    </form>
+
+        <script src="/static/script/registration.check_all_input_value.script.js"></script>
+        
+    </div>
+    
+</body>
+
+</html>
