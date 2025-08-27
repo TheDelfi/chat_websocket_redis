@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Transporter } from 'nodemailer'
-import { user_registr } from './user.dto';
+import { user_login, user_registr } from './user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../entities/uset.table';
 import { Repository } from 'typeorm';
-import { argon2i, argon2id, hash } from 'argon2';
+import { argon2d, argon2i, argon2id, hash, verify } from 'argon2';
 import * as fs from 'fs/promises'
 import * as path from 'path'
 import { nanoid } from 'nanoid';
@@ -22,7 +22,7 @@ export class AuthService {
         @Inject('CONNECTED_REDIS') private readonly redis: RedisClientType,
     ){}
 
-    async registration_verify_email(user_info: user_registr){
+    async registration_verify_email(user_info: user_registr,res:Response){
         const checking_for_re_registration = await this.Table_User.createQueryBuilder('u')
         .select(['u.name','u.email'])
         .where('u.name = :name OR u.email = :email',{name: user_info.name, email: user_info.email})
@@ -63,8 +63,15 @@ export class AuthService {
             html: ready_mail
         })
 
+        res.cookie('registration_token', token, {
+            maxAge: 5 * 60 * 1000,
+            httpOnly: true,
+            secure: true,
+          }
+        )
 
-        return token
+        return true
+
     }
 
 
@@ -122,5 +129,35 @@ export class AuthService {
             text: null,
             html: ready_mail
         })
+    }
+
+
+    async login(user_data:user_login,res:Response){
+        const user_search = await this.Table_User.createQueryBuilder('u')
+        .select(['u.password','u.id'])
+        .where('u.name = :user_or_email OR u.email = :user_or_email',{
+            user_or_email:user_data.name_or_email
+        })
+        .getOne()
+
+        if(!user_search?.id){
+            return false
+        }
+
+        const matching_passwords = await verify(user_search.password,user_data.password)
+
+        if(matching_passwords){
+            res.cookie('user_id',user_search.id ,{
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                httpOnly: true,
+                secure: true,
+              })
+              return true
+        }
+        else{
+            return false
+        }
+
+
     }
 }

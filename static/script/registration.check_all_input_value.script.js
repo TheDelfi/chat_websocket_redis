@@ -4,7 +4,7 @@ function check_all_input_value(){
     const password = document.getElementById('input_password').value
     const checkbox = document.querySelector('.custom-checkbox');
 
-    if(name.length >= 2 && name.length <= 16 && email.length >= 2 && email.length <= 48 && password.length >= 6 && password.length <= 24 && checkbox.checked == true){
+    if(name.length >= 2 && name.length <= 16 && email.length >= 2 && email.length <= 64 && password.length >= 6 && password.length <= 24 && checkbox.checked == true){
         document.getElementsByClassName('submit_registration')[0].disabled = false
         document.getElementsByClassName('submit_registration')[0].style.opacity = 1
     }

@@ -2,7 +2,7 @@ function check_all_input_value(){
     const name = document.getElementById('input_name').value
     const password = document.getElementById('input_password').value
 
-    if(name.length >= 2 && name.length <= 16 && password.length >= 6 && password.length <= 24){
+    if(name.length >= 2 && name.length <= 64 && password.length >= 6 && password.length <= 24){
         document.getElementsByClassName('submit_registration')[0].disabled = false
         document.getElementsByClassName('submit_registration')[0].style.opacity = 1
     }
