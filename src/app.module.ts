@@ -6,6 +6,8 @@ import { EmailModule } from './email/email.module';
 import { AuthModule } from './auth/auth.module';
 import * as path from 'path';
 import { User } from '../entities/uset.table';
+import { QueueModule } from './queue/queue.module';
+import { ChatModule } from './chat/chat.module';
 
 
 @Module({
@@ -37,6 +39,10 @@ import { User } from '../entities/uset.table';
     EmailModule,
     
     AuthModule,
+    
+    QueueModule,
+    
+    ChatModule,
 
   ],
 })
