@@ -16,7 +16,7 @@ import { ChatModule } from './chat/chat.module';
     
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: path.join(__dirname, '..', '.env')
+      envFilePath: '.env'
     }),
     
     TypeOrmModule.forRootAsync(
@@ -27,7 +27,7 @@ import { ChatModule } from './chat/chat.module';
           host: config_service.get<string>('DB_HOST'),
           port: config_service.get<number>('DB_PORT'),
           username: config_service.get<string>('DB_USERNAME'),
-          password: config_service.get<string>('DB_PASSWORD'),
+          password: String(config_service.get<string>('DB_PASSWORD')),
           database: config_service.get<string>('DB_DATABASE'),
           entities: [User],
           synchronize: true,
@@ -47,3 +47,4 @@ import { ChatModule } from './chat/chat.module';
   ],
 })
 export class AppModule {}
+

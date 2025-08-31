@@ -111,7 +111,7 @@ body{
     border: none;
     margin-left: 5px;
     outline: 0;
-    width: 92%;
+    width: 850px;
     white-space: nowrap;
     text-overflow: ellipsis;
     padding: 20px 15px;
@@ -124,7 +124,7 @@ body{
     position: absolute;
     border: none;
     left: 887px;
-    bottom: 9px;
+    bottom: 15px;
     border-radius: 9px;
     cursor: pointer;
     padding: 5px;

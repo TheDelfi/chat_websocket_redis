@@ -22,6 +22,7 @@ async function bootstrap() {
 
   if(port){
     await app.listen(port);
+    console.log('Nest application successfully started on port 3000');
   }
   
 }

@@ -23,7 +23,7 @@ export class QueueService {
     async user_selection(req:Request, res:Response){
 
         
-        const user_id = nanoid(8) // req.cookies['user_id']
+        const user_id =  req.cookies['user_id'] // nanoid(8)
         const unixtime = getUnixTime(new Date())
 
         // проверка на вход в очередь повторно

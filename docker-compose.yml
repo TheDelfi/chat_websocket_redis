@@ -10,7 +10,8 @@ services:
       - '6379:6379'
     
     networks:
-      - redis_network_for_websocket_chat
+      - my-app
+    
   
 
   redis-insight:
@@ -21,19 +22,55 @@ services:
       - '5540:5540'
     
     networks:
-      - redis_network_for_websocket_chat
+      - my-app
 
     volumes:
       - 'redisDATA_volume_for_websocket_chat:/data'
     
     depends_on:
       - redis
+    
+
+    
+  # postgresql:
+  #   image: bitnami/postgresql
+  #   container_name: postgresql_container
+
+  #   ports:
+  #     - '5432:5432'
+    
+  #   volumes:
+  #     - 'postgresql_database:/bitnami/postgresql'
+    
+  #   networks:
+  #     - my-app
+    
+  #   environment:
+  #     - POSTGRESQL_USERNAME=${DB_USERNAME}
+  #     - POSTGRESQL_PASSWORD=${DB_PASSWORD}
+  #     - POSTGRESQL_DATABASE=${DB_DATABASE}
+  #     - POSTGRESQL_PORT_NUMBER=${DB_PORT}
+  
+
+
+  # chat_websocket:
+  #   image: chat_websocket:v1.0
+  #   container_name: chat_websocket
+
+  #   ports:
+  #     - '3000:3000'
+  #   networks:
+  #     - my-app
+    
+
+
 
 networks:
-  redis_network_for_websocket_chat:
+  my-app:
     driver: bridge
 
 volumes:
   redisDATA_volume_for_websocket_chat:
+  # postgresql_database:
 
 
