@@ -6,7 +6,7 @@ import { createClient } from 'redis'
     providers:[{
         provide: 'CONNECTED_REDIS',
         useFactory: async() => {
-            const client = await createClient({ url: 'redis://localhost:6379' })
+            const client = await createClient({ url: 'redis://redis:6379' })
             await client.connect()
             return client
         }

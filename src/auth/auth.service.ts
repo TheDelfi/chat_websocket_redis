@@ -34,7 +34,7 @@ export class AuthService {
 
 
         const token = nanoid(24)
-        const mail_html = await fs.readFile(path.join(__dirname, '..', '..', 'template', 'mail_template.ejs'), 'utf8')
+        const mail_html = await fs.readFile(path.join(process.cwd(), 'template', 'mail_template.ejs'), 'utf8')
         const ready_mail = mail_html.replace(/%%TOKEN%%/g, token)
 
         const hash_password = await hash(user_info.password,{
@@ -119,7 +119,7 @@ export class AuthService {
 
     async arleady_send_mail(token,email){
         
-        const mail_html = await fs.readFile(path.join(__dirname, '..', '..', 'template', 'mail_template.ejs'), 'utf8')
+        const mail_html = await fs.readFile(path.join(process.cwd(),'template', 'mail_template.ejs'), 'utf8')
         const ready_mail = mail_html.replace(/%%TOKEN%%/g, token)
         
         const sended_mail = await this.nodemailer.sendMail({

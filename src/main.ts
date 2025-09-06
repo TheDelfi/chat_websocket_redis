@@ -12,18 +12,15 @@ async function bootstrap() {
 
 
   app.use(cookieParser())
-  app.useStaticAssets(path.join(__dirname, '..', 'static'),{
+
+  app.useStaticAssets(path.join(process.cwd(), 'static'),{
     prefix:'/static'
   });  
-  app.setBaseViewsDir(path.join(__dirname,'..','template'))
+  app.setBaseViewsDir(path.join(process.cwd(),'template'))
   app.setViewEngine('ejs')
   
-  const port = config_service.get<number>('port')
-
-  if(port){
-    await app.listen(port);
-    console.log('Nest application successfully started on port 3000');
-  }
+  await app.listen(3000);
+  console.log('Nest application successfully started on port 3000');
   
 }
 bootstrap();

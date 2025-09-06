@@ -34,11 +34,11 @@ $ npm install
 ## Compile and run the project
 
 ```bash
-# development
-$ npm run start
+# create a project image
+$ docker build -t my-app .
 
-# watch mode
-$ npm run start:dev
+# run the project with all the dependencies
+$ docker-compose up
 
 # production mode
 $ npm run start:prod

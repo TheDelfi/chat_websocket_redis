@@ -13,6 +13,7 @@ export class AuthController {
   @Get('registration')
   @Render('registration')
   async get_registr_page(@Req() req: Request,@Res() res:Response){
+
     return {}
   }
 
