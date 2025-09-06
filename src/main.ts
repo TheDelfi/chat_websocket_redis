@@ -19,7 +19,7 @@ async function bootstrap() {
   app.setBaseViewsDir(path.join(process.cwd(),'template'))
   app.setViewEngine('ejs')
   
-  await app.listen(3000);
+  await app.listen(3000, '0.0.0.0');
   console.log('Nest application successfully started on port 3000');
   
 }

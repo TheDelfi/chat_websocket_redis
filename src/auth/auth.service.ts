@@ -66,7 +66,9 @@ export class AuthService {
         res.cookie('registration_token', token, {
             maxAge: 5 * 60 * 1000,
             httpOnly: true,
-            secure: true,
+            secure: false,
+            sameSite: 'lax',
+            domain: '',
           }
         )
 
@@ -106,6 +108,8 @@ export class AuthService {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
                 secure: true,
+                sameSite: 'lax',
+                domain: '',
               })
 
             return {
@@ -150,7 +154,9 @@ export class AuthService {
             res.cookie('user_id',user_search.id ,{
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
-                secure: true,
+                secure: false,
+                sameSite: 'lax',
+                domain: '',
               })
               return true
         }

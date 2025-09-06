@@ -1,6 +1,6 @@
 const params = new URLSearchParams(window.location.search);
 
-const socket = new io('http://localhost:3000/chat',{
+const socket = new io('http://192.168.0.36:3000/chat',{
     query:{
         chatID: params.get('chatID'),
     }
